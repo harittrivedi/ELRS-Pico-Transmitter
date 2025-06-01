@@ -14,3 +14,4 @@ A custom ELRS (Crossfire) 4-stick radio transmitter built on the Raspberry Pi Pi
    ```bash
    git clone https://github.com/<your-username>/ELRS-Pico-Transmitter.git
    cd ELRS-Pico-Transmitter/firmware
+2. Will add more detailes and BOM , as Things are finalized :) 
