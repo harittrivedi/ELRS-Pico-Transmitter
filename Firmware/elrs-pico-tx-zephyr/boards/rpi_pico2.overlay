@@ -1,0 +1,38 @@
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ * 
+ * Devicetree overlay for ELRS Pico TX on RP2350 (Pico 2)
+ * 
+ * Pin Assignments (matching original Arduino config):
+ * - GP25: LED (onboard)
+ * - GP0:  UART TX to ELRS module
+ * - GP1:  UART RX from ELRS module
+ * - GP10: Buzzer (future)
+ */
+
+/ {
+    aliases {
+        led0 = &led0;
+    };
+
+    leds {
+        compatible = "gpio-leds";
+        led0: led_0 {
+            gpios = <&gpio0 25 GPIO_ACTIVE_HIGH>;
+            label = "Onboard LED";
+        };
+    };
+};
+
+/* 
+ * UART1 configuration - commented until PIO implementation
+ * The standard UART cannot do inversion, so we'll use PIO
+ */
+/*
+&uart1 {
+    status = "okay";
+    current-speed = <400000>;
+    pinctrl-0 = <&uart1_default>;
+    pinctrl-names = "default";
+};
+*/

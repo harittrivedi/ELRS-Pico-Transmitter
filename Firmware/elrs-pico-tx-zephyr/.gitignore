@@ -1,0 +1,27 @@
+# Zephyr build artifacts
+build/
+twister-out*/
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Zephyr specific
+zephyr/.cache/
+*.elf
+*.bin
+*.hex
+*.map
+*.lst

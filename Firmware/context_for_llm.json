@@ -1,0 +1,58 @@
+{
+  "project_name": "ELRS Pico Transmitter - Dual Mode Firmware",
+  "goal": "Implement a dual-mode firmware for Raspberry Pi Pico 2: USB Bridge Mode and Standalone Analog Gimbal Mode.",
+  "platform": {
+    "hardware": "Raspberry Pi Pico 2 (RP2350)",
+    "framework": "Arduino-Pico (Earle Philhower)",
+    "uart_config": "Serial1: Baud=400000, TX=GP0, RX=GP1",
+    "analog_inputs": "Aileron=GP29, Elevator=GP28, Throttle=GP27, Rudder=GP26"
+  },
+  "current_state": {
+    "firmware_file": "SimpleTx_PICO.ino",
+    "status": "Implemented",
+    "modes": {
+      "BRIDGE_MODE_1": {
+        "name": "True CRSF Bridge",
+        "description": "Transparent bidirectional bridge between USB Serial and UART.",
+        "features": [
+          "Binary Passthrough",
+          "Failsafe Injection",
+          "Echo Guard"
+        ]
+      },
+      "BRIDGE_MODE_0": {
+        "name": "Analog Gimbal Mode",
+        "description": "Reads physical potentiometers/switches and generates CRSF.",
+        "features": [
+          "12-bit ADC Reading",
+          "Calibration from EEPROM",
+          "Switch Handling"
+        ]
+      }
+    },
+    "configuration": "Select mode via #define BRIDGE_MODE in config.h"
+  },
+  "protocol_spec": {
+    "format": "Binary CRSF",
+    "structure": "[Addr][Len][Type][Payload...][CRC]",
+    "failsafe": {
+      "timeout_ms": 250,
+      "action": "Inject Throttle Min + Disarm frames"
+    }
+  },
+  "implementation_details": {
+    "parser": "CRSFParser class (Double Buffered, Safe State Machine)",
+    "pipelines": "Separate compile-time logic (#if BRIDGE_MODE) for Bridge vs Analog",
+    "safety_features": [
+      "Echo Guard (Reverse Utility)",
+      "Double Buffered Frame Access (Prevents Partial Reads)",
+      "Input Pullup Logic for Switches",
+      "Explicit 11-bit Masking for Channel Packing"
+    ]
+  },
+  "file_paths": {
+    "firmware_dir": "c:\\Users\\harit\\ELRS-Pico-Transmitter\\Firmware\\SimpleTx_PICO",
+    "config_file": "c:\\Users\\harit\\ELRS-Pico-Transmitter\\Firmware\\SimpleTx_PICO\\config.h",
+    "documentation": "c:\\Users\\harit\\.gemini\\antigravity\\brain\\ab5e9d57-68fa-4353-9abb-60784b6a65ea\\walkthrough.md"
+  }
+}
